@@ -1,7 +1,18 @@
-import Head from 'next/head';
+import React, { useContext, useEffect } from 'react';
 import Layout from '../components/Layout';
 
+import authContext from '../context/auth/authContext';
+
 const Index = () => {
+
+  //Extraer el usuario autenticado del storage
+  const AuthContext = useContext(authContext);
+  const { usuarioAutneticado } = AuthContext;
+
+  useEffect( () => {
+    usuarioAutneticado();
+  }, [])
+
   return (
     <Layout>
         <h1>Index</h1>

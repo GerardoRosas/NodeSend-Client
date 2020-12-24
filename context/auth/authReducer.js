@@ -1,13 +1,18 @@
 import {
     REGISTRO_EXITOSO,
     REGISTRO_ERROR,
-    LIMPIAR_ALERTA
+    LIMPIAR_ALERTA,
+    LOGIN_ERROR,
+    LOGIN_EXITOSO,
+    USUARIO_AUTENTICADO,
+    CERRAR_SESION
 } from '../../types';
 
 const authReducer = (state, action ) => {
     switch(action.type){
         case REGISTRO_EXITOSO:
         case REGISTRO_ERROR:
+        case LOGIN_ERROR:
             return{
                 ...state,
                 mensaje: action.payload
@@ -16,6 +21,26 @@ const authReducer = (state, action ) => {
             return{
                 ...state,
                 mensaje: null
+            }
+        case LOGIN_EXITOSO:
+            localStorage.setItem('NodeSendToken', action.payload);
+            return{
+                ...state,
+                token: action.payload,
+                autenticado: true
+            }
+        case USUARIO_AUTENTICADO:
+            return{
+                ...state,
+                usuario: action.payload
+            }
+        case CERRAR_SESION:
+            localStorage.removeItem('NodeSendToken')
+            return{
+                ...state,
+                usuario: null,
+                token: null,
+                autenticado: null
             }
         
         default:
