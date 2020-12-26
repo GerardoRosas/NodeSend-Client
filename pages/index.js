@@ -17,7 +17,11 @@ const Index = () => {
   const { mensaje_archivo, url } = AppContext;
 
   useEffect( () => {
-    usuarioAutneticado();
+    const token = localStorage.getItem('NodeSendToken');
+    if(token){
+      usuarioAutneticado();
+    }
+    
   }, [])
 
   return (
